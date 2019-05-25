@@ -32,7 +32,7 @@ namespace USC.Restaurante.Api
                 c.SwaggerDoc("v1",
                     new Info
                     {
-                        Title = "Trabalho - Arquitetura de Software - Restaurante",
+                        Title = "Arquitetura de Software - Restaurante",
                         Version = "v1"
                     });
 
@@ -53,6 +53,17 @@ namespace USC.Restaurante.Api
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            if (env.IsDevelopment())
+                app.UseDeveloperExceptionPage();
+            else
+                app.UseHsts();
+
+            app.UseCors(builder => builder
+                                    .AllowAnyOrigin()
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader()
+                                    .AllowCredentials());
+
             app.UseMvc();
 
             // Ativando middlewares para uso do Swagger
@@ -60,7 +71,7 @@ namespace USC.Restaurante.Api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json",
-                    "Conversor de Temperaturas");
+                    "Arquitetura de Software - Restaurante");
             });
         }
     }
