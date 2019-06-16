@@ -1,12 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace USC.Restaurante.Api.Controllers
 {
-    public class UsuarioController : Controller
+    [Route("api/usuarios")]
+    [ApiController]
+    public class UsuarioController : ControllerBase
     {
-        public IActionResult Index()
+        [Route(""), HttpGet]
+        public async Task<IActionResult> GetUsuarios()
         {
-            return View();
+            return Ok("Usuário teste");
+        }
+
+        [Route("{idUsuario}"), HttpGet]
+        public async Task<IActionResult> GetUsuario(long idUsuario)
+        {
+            return Ok("Usuário teste");
+        }
+
+        [Route(""), HttpPost]
+        public async Task<IActionResult> PostUsuario()
+        {
+            return Ok("Usuário teste");
+        }
+
+        [Route("{idUsuario}"), HttpPut]
+        public async Task<IActionResult> PutUsuario(long idUsuario)
+        {
+            return Ok("Usuário teste");
         }
     }
 }
