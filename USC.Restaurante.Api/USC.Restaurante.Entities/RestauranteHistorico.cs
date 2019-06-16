@@ -7,38 +7,33 @@ using USC.Restaurante.Interfaces;
 namespace USC.Restaurante.Entities
 {
     /// <summary>
-    /// Entidade UsuarioRestaurante
+    /// Entidade UsuarioRestauranteHistorico
     /// </summary>
-    [Table("USUARIORESTAURANTE")]
-    public class UsuarioRestaurante : IEntity
+    [Table("RESTAURANTEHISTORICO")]
+    public class RestauranteHistorico : IEntity
     {
         /// <summary>
-        /// Identificador de UsuarioRestaurante
+        /// Identificador de UsuarioRestauranteHistorico
         /// </summary>
         [Key]
-        public long IdUsuarioRestaurante { get; set; }
+        public long IdRestauranteHist { get; set; }
         /// <summary>
         /// Identificador de Restaurante
         /// </summary>
         [ForeignKey("IdRestaurante")]
         public long IdRestaurante { get; set; }
         /// <summary>
-        /// Identificador de Usuario
+        /// Propriedade DataHoraEscolha
         /// </summary>
-        [ForeignKey("IdUsuario")]
-        public long IdUsuario { get; set; }
+        public DateTime DataHoraEscolha { get; set; }
         /// <summary>
-        /// Propriedade DataHora
+        /// Propriedade QuantidadeVotos
         /// </summary>
-        public DateTime DataHora { get; set; }
+        public int QuantidadeVotos { get; set; }
         /// <summary>
         /// Propriedade Restaurante
         /// </summary>
         public virtual Restaurante Restaurante { get; set; }
-        /// <summary>
-        /// Propriedade Usuario
-        /// </summary>
-        public virtual Usuario Usuario { get; set; }
 
         /// <summary>
         /// Método responsável por validar a entidade
@@ -49,9 +44,9 @@ namespace USC.Restaurante.Entities
         /// </returns>
         public bool ValidarEntidade()
         {
-            return IdUsuarioRestaurante != default(long)
+            return IdRestauranteHist != default(long)
                 && IdRestaurante != default(long)
-                && IdUsuario != default(long);
+                && QuantidadeVotos > 0;
         }
 
         /// <summary>
@@ -60,14 +55,14 @@ namespace USC.Restaurante.Entities
         /// <returns>Caso houver, as mensagens de erro</returns>
         public IEnumerable<string> VerificarMensagens()
         {
-            if (IdUsuarioRestaurante == default(long))
-                yield return "Identificador UsuarioRestaurante inválido.";
+            if (IdRestauranteHist == default(long))
+                yield return "Identificador RestauranteHistorico inválido.";
 
             if (IdRestaurante == default(long))
                 yield return "Identificador Restaurante inválido.";
 
-            if (IdUsuario == default(long))
-                yield return "Identificador Usuario inválido.";
+            if (QuantidadeVotos < 1)
+                yield return "Quantidade de votos inválidos.";
         }
     }
 }

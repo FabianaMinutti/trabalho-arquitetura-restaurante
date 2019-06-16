@@ -1,41 +1,76 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using USC.Restaurante.Entities.Enum;
 using USC.Restaurante.Interfaces;
 
 namespace USC.Restaurante.Entities
 {
     /// <summary>
-    /// Entidade responsável pela tabela de Usuário
+    /// Entidade Usuario
     /// </summary>
     [Table("USUARIO")]
     public class Usuario : IEntity
     {
         /// <summary>
-        /// Identificador de login
+        /// Identificador de Usuário
         /// </summary>
         [Key]
-        public long IdLogin { get; set; }
-
+        public long IdUsuario { get; set; }
         /// <summary>
-        /// Login do usuário
+        /// Propriedade Login
         /// </summary>
         public string Login { get; set; }
-
         /// <summary>
-        /// Senha do usuário
+        /// Propriedade Senha
         /// </summary>
         public string Senha { get; set; }
+        /// <summary>
+        /// Propriedade TipoPessoa
+        /// </summary>
+        public EnumTipoPessoa TipoPessoa { get; set; }
+        /// <summary>
+        /// Identificador de Pessoa
+        /// </summary>
+        [ForeignKey("IdPessoa")]
+        public long IdPessoa { get; set; }
+        /// <summary>
+        /// Propriedade Pessoa
+        /// </summary>
+        public virtual Pessoa Pessoa { get; set; }
 
         /// <summary>
-        /// Método responsável por verificar se a entidade é válida
+        /// Método responsável por validar a entidade
         /// </summary>
-        /// <returns>True se entidade válida e false se entidade com algum valor incorreto</returns>
+        /// <returns>
+        /// True se entidade válida
+        /// False se entidade inválida
+        /// </returns>
         public bool ValidarEntidade()
         {
-            return
-                IdLogin != 0 &&
-                !(string.IsNullOrEmpty(Login)) &&
-                !(string.IsNullOrEmpty(Senha));
+            return IdUsuario != default(long)
+                && IdPessoa != default(long)
+                && !string.IsNullOrEmpty(Login) && Login.Length <= 60
+                && !string.IsNullOrEmpty(Senha) && Senha.Length <= 60;
+        }
+
+        /// <summary>
+        /// Verifica mensagens de erro retornadas
+        /// </summary>
+        /// <returns>Caso houver, as mensagens de erro</returns>
+        public IEnumerable<string> VerificarMensagens()
+        {
+            if (IdUsuario == default(long))
+                yield return "Identificador Usuário inválido.";
+
+            if (IdPessoa == default(long))
+                yield return "Identificador Pessoa inválido.";
+
+            if (string.IsNullOrEmpty(Login) || Login.Length > 60)
+                yield return "Login inválido.";
+
+            if (string.IsNullOrEmpty(Senha) || Senha.Length > 60)
+                yield return "Senha inválida.";
         }
     }
 }
