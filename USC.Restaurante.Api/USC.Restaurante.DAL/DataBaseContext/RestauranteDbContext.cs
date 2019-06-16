@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using USC.Restaurante.DAL.Infra;
+using USC.Restaurante.Entities;
 
 namespace USC.Restaurante.DAL.DataBaseContext
 {
@@ -13,6 +15,8 @@ namespace USC.Restaurante.DAL.DataBaseContext
         {
             _configuration = configuration;
         }
+
+        public IQueryable<Usuario> QueryUsuario => throw new System.NotImplementedException();
         #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
