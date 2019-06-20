@@ -8,7 +8,6 @@ namespace USC.Restaurante.DAL.DataBaseContext
 {
     public class RestauranteDbContext : DbContext, IRestauranteDbContext
     {
-        #region Construtor
         private IConfiguration _configuration;
 
         public RestauranteDbContext(IConfiguration configuration)
@@ -16,14 +15,19 @@ namespace USC.Restaurante.DAL.DataBaseContext
             _configuration = configuration;
         }
 
-        public IQueryable<Usuario> QueryUsuario => throw new System.NotImplementedException();
-        #endregion
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var connection = _configuration.GetConnectionString("RestauranteDbBase");
             optionsBuilder.UseSqlServer(connection);
             base.OnConfiguring(optionsBuilder);
         }
+
+        public void SetModified(object entity)
+        {
+            Entry(entity).State = EntityState.Modified;
+        }
+
+        public DbSet<Usuario> Usuario { get; set; }
+        public IQueryable<Usuario> QueryUsuario { get { return Usuario; } }
     }
 }

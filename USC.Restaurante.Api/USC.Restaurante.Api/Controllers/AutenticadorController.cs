@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace USC.Restaurante.Api
+namespace USC.Restaurante.Api.Controllers
 {
     [Route("api/autenticacao")]
     [ApiController]

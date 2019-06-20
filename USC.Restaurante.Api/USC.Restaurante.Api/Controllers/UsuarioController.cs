@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using USC.Restaurante.Api.UoW.Infra;
 
 namespace USC.Restaurante.Api.Controllers
 {
@@ -7,6 +8,13 @@ namespace USC.Restaurante.Api.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+        private IUsuarioUoW _usuarioUoW;
+
+        public UsuarioController(IUsuarioUoW usuarioUoW)
+        {
+            _usuarioUoW = usuarioUoW;
+        }
+
         [Route(""), HttpGet]
         public async Task<IActionResult> GetUsuarios()
         {

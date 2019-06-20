@@ -3,7 +3,7 @@ using USC.Restaurante.Entities;
 
 namespace USC.Restaurante.DAL.Infra
 {
-    public interface IRestauranteDbContext
+    public interface IRestauranteDbContext : IDataBaseContext
     {
         IQueryable<Usuario> QueryUsuario { get; }
     }

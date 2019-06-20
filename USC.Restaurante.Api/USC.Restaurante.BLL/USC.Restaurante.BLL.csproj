@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\USC.Restaurante.BLL.Infra\USC.Restaurante.BLL.Infra.csproj" />
+    <ProjectReference Include="..\USC.Restaurante.DAL.Infra\USC.Restaurante.DAL.Infra.csproj" />
+  </ItemGroup>
+
+</Project>

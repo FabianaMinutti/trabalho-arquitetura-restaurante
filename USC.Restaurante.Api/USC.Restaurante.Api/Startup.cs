@@ -1,9 +1,18 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
+using USC.Restaurante.Api.UoW;
+using USC.Restaurante.Api.UoW.Infra;
+using USC.Restaurante.BLL;
+using USC.Restaurante.BLL.Infra;
+using USC.Restaurante.DAL;
+using USC.Restaurante.DAL.DataBaseContext;
+using USC.Restaurante.DAL.Infra;
 
 namespace USC.Restaurante.Api
 {
@@ -38,6 +47,23 @@ namespace USC.Restaurante.Api
 
                 c.IncludeXmlComments(GetXmlCommentsPath());
             });
+
+            // DB CONTEXT
+            services.AddScoped<IRestauranteDbContext, RestauranteDbContext>();
+
+            // REPOSITORY
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
+            // BLL
+            services.AddScoped<IUsuarioBLL, UsuarioBLL>();
+
+            // UoW
+            services.AddScoped<IUsuarioUoW, UsuarioUoW>();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                // FORMATACAO JSON (PASCAL CASE)
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
         }
 
         protected static string GetXmlCommentsPath()
