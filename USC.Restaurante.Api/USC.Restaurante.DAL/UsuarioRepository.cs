@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using USC.Restaurante.DAL.Infra;
 using USC.Restaurante.Entities;
@@ -16,9 +17,9 @@ namespace USC.Restaurante.DAL
         /// Método responsável por buscar todos os usuários
         /// </summary>
         /// <returns>Lista de objetos de usuários</returns>
-        public Task<List<Usuario>> GetAllUsuarioAsync()
+        public async Task<List<Usuario>> GetAllUsuarioAsync()
         {
-            throw new NotImplementedException();
+            return _dbContext.QueryUsuario.ToList();
         }
 
         /// <summary>
@@ -26,9 +27,16 @@ namespace USC.Restaurante.DAL
         /// </summary>
         /// <param name="id">Identificador do usuário</param>
         /// <returns>Objeto usuário</returns>
-        public Task<Usuario> GetUsuarioAsync(long id)
+        public async Task<Usuario> GetUsuarioAsync(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _dbContext.QueryUsuario.Where(x => x.IdUsuario == id).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -36,9 +44,19 @@ namespace USC.Restaurante.DAL
         /// </summary>
         /// <param name="usuario">Objeto usuário</param>
         /// <returns>Objeto usuário</returns>
-        public Task<Usuario> PostUsuarioAsync(Usuario usuario)
+        public async Task<Usuario> PostUsuarioAsync(Usuario usuario)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _dbContext.Add(usuario);
+                await _dbContext.SaveChangesAsync();
+
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -46,9 +64,19 @@ namespace USC.Restaurante.DAL
         /// </summary>
         /// <param name="usuario">Objeto usuário</param>
         /// <returns>Objeto usuário</returns>
-        public Task<Usuario> PutUsuarioAsync(Usuario usuario)
+        public async Task<Usuario> PutUsuarioAsync(Usuario usuario)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _dbContext.SetModified(usuario);
+                await _dbContext.SaveChangesAsync();
+
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

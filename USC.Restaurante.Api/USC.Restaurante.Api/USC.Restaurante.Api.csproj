@@ -22,6 +22,7 @@
     <ProjectReference Include="..\USC.Restaurante.BLL\USC.Restaurante.BLL.csproj" />
     <ProjectReference Include="..\USC.Restaurante.DAL.Infra\USC.Restaurante.DAL.Infra.csproj" />
     <ProjectReference Include="..\USC.Restaurante.DAL\USC.Restaurante.DAL.csproj" />
+    <ProjectReference Include="..\USC.Restaurante.Helpers\USC.Restaurante.Helpers.csproj" />
   </ItemGroup>
 
 </Project>

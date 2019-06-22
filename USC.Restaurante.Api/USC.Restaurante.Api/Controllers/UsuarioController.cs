@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using USC.Restaurante.Api.UoW.Infra;
+using USC.Restaurante.Entities;
+using USC.Restaurante.Helpers;
 
 namespace USC.Restaurante.Api.Controllers
 {
@@ -28,9 +31,22 @@ namespace USC.Restaurante.Api.Controllers
         }
 
         [Route(""), HttpPost]
-        public async Task<IActionResult> PostUsuario()
+        public async Task<IActionResult> PostUsuario([FromBody] Usuario usuario)
         {
-            return Ok("Usuário teste");
+            var response = new ResponseContent();
+            try
+            {
+                response.Object = await _usuarioUoW.usuarioBLL.PostUsuarioAsync(usuario);
+                response.Message = "Requisição realizada com sucesso.";
+                response.Status = true;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Status = false;
+            }
+
+            return Ok(response);
         }
 
         [Route("{idUsuario}"), HttpPut]

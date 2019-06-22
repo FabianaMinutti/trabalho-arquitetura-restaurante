@@ -43,9 +43,9 @@ namespace USC.Restaurante.BLL
         /// </summary>
         /// <param name="usuario">Objeto usuário</param>
         /// <returns>Objeto usuário</returns>
-        public Task<Usuario> PostUsuarioAsync(Usuario usuario)
+        public async Task<Usuario> PostUsuarioAsync(Usuario usuario)
         {
-            throw new NotImplementedException();
+            return await _usuarioRepository.PostUsuarioAsync(usuario);
         }
 
         /// <summary>
