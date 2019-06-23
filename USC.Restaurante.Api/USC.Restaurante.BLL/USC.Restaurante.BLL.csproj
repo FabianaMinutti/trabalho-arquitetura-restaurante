@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\USC.Restaurante.BLL.Infra\USC.Restaurante.BLL.Infra.csproj" />
     <ProjectReference Include="..\USC.Restaurante.DAL.Infra\USC.Restaurante.DAL.Infra.csproj" />
+    <ProjectReference Include="..\USC.Restaurante.Erros\USC.Restaurante.Erros.csproj" />
   </ItemGroup>
 
 </Project>

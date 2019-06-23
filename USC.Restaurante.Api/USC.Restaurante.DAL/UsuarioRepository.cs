@@ -40,6 +40,23 @@ namespace USC.Restaurante.DAL
         }
 
         /// <summary>
+        /// Método resposável por buscar um usuário específico
+        /// </summary>
+        /// <param name="login">Login do usuário</param>
+        /// <returns>Objeto usuário</returns>
+        public async Task<Usuario> GetUsuarioByLoginAsync(string login)
+        {
+            try
+            {
+                return _dbContext.QueryUsuario.Where(x => x.Login.ToUpper() == login.ToUpper()).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Método responsável por inserir um novo usuário
         /// </summary>
         /// <param name="usuario">Objeto usuário</param>
@@ -48,6 +65,9 @@ namespace USC.Restaurante.DAL
         {
             try
             {
+                if (!usuario.ValidarEntidade())
+                    throw new Exception("Usuário inválido.");
+
                 _dbContext.Add(usuario);
                 await _dbContext.SaveChangesAsync();
 

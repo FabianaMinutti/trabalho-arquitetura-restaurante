@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using USC.Restaurante.BLL.Infra;
 using USC.Restaurante.DAL.Infra;
 using USC.Restaurante.Entities;
+using USC.Restaurante.Erros;
 
 namespace USC.Restaurante.BLL
 {
@@ -23,7 +23,7 @@ namespace USC.Restaurante.BLL
         /// <returns>Lista de objetos de usuários</returns>
         public Task<List<Usuario>> GetAllUsuarioAsync()
         {
-            throw new NotImplementedException();
+            return _usuarioRepository.GetAllUsuarioAsync();
         }
 
         /// <summary>
@@ -34,7 +34,15 @@ namespace USC.Restaurante.BLL
         /// <returns>Objeto usuário</returns>
         public Task<Usuario> GetUsuarioAsync(long id)
         {
-            throw new NotImplementedException();
+            if (id < 1)
+                throw new ParametroInvalidoException("Identificador usuário inválido", "id");
+
+            var usuario = _usuarioRepository.GetUsuarioAsync(id);
+
+            if (usuario == null)
+                throw new ElementoNaoEncontratoException("Usuário não encontrado.");
+
+            return usuario;
         }
 
         /// <summary>
@@ -56,7 +64,12 @@ namespace USC.Restaurante.BLL
         /// <returns>Objeto usuário</returns>
         public Task<Usuario> PutUsuarioAsync(Usuario usuario)
         {
-            throw new NotImplementedException();
+            var usuarioExistente = _usuarioRepository.GetUsuarioAsync(usuario.IdUsuario);
+
+            if (usuarioExistente == null)
+                throw new ElementoNaoEncontratoException("Usuário não encontrado.");
+
+            return _usuarioRepository.PutUsuarioAsync(usuario);
         }
     }
 }

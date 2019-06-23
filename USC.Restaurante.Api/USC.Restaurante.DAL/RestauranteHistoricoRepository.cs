@@ -48,6 +48,9 @@ namespace USC.Restaurante.DAL
         {
             try
             {
+                if (!restauranteHistorico.ValidarEntidade())
+                    throw new Exception("Restaurante histórico inválido.");
+
                 _dbContext.Add(restauranteHistorico);
                 await _dbContext.SaveChangesAsync();
 

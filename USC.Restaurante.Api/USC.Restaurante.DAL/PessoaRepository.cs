@@ -48,6 +48,9 @@ namespace USC.Restaurante.DAL
         {
             try
             {
+                if (!pessoa.ValidarEntidade())
+                    throw new Exception("Pessoa inválida.");
+
                 _dbContext.Add(pessoa);
                 await _dbContext.SaveChangesAsync();
 

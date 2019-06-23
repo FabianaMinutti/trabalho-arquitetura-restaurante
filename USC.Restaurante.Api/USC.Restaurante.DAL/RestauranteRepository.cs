@@ -48,6 +48,9 @@ namespace USC.Restaurante.DAL
         {
             try
             {
+                if (!restaurante.ValidarEntidade())
+                    throw new Exception("Restaurante inválido.");
+
                 _dbContext.Add(restaurante);
                 await _dbContext.SaveChangesAsync();
 
@@ -68,7 +71,7 @@ namespace USC.Restaurante.DAL
             (Entities.Restaurante restaurante)
         {
             try
-            {
+            {                
                 _dbContext.SetModified(restaurante);
                 await _dbContext.SaveChangesAsync();
 

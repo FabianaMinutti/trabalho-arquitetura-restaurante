@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using USC.Restaurante.BLL.Infra;
 using USC.Restaurante.DAL.Infra;
+using USC.Restaurante.Erros;
 
 namespace USC.Restaurante.BLL
 {
@@ -16,22 +17,35 @@ namespace USC.Restaurante.BLL
 
         public Task<List<Entities.Restaurante>> GetAllRestauranteAsync()
         {
-            throw new System.NotImplementedException();
+            return _restauranteRepository.GetAllRestauranteAsync();
         }
 
         public Task<Entities.Restaurante> GetRestauranteAsync(long id)
         {
-            throw new System.NotImplementedException();
+            if (id < 1)
+                throw new ParametroInvalidoException("Identificador de restaurante inválido.", "id");
+
+            var restaurante = _restauranteRepository.GetRestauranteAsync(id);
+
+            if (restaurante == null)
+                throw new ElementoNaoEncontratoException("Restaurante não encontrado.");
+
+            return restaurante;               
         }
 
         public Task<Entities.Restaurante> PostRestauranteAsync(Entities.Restaurante restaurante)
         {
-            throw new System.NotImplementedException();
+            return _restauranteRepository.PostRestauranteAsync(restaurante);
         }
 
         public Task<Entities.Restaurante> PutRestauranteAsync(Entities.Restaurante restaurante)
         {
-            throw new System.NotImplementedException();
+            var restauranteExistente = _restauranteRepository.GetRestauranteAsync(restaurante.IdRestaurante);
+
+            if (restauranteExistente == null)
+                throw new ElementoNaoEncontratoException("Restaurante não encontrado.");
+
+            return _restauranteRepository.PutRestauranteAsync(restaurante);
         }
     }
 }

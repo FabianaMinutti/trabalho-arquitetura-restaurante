@@ -53,12 +53,22 @@ namespace USC.Restaurante.Api
 
             // REPOSITORY
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IPessoaRepository, PessoaRepository>();
+            services.AddScoped<IRestauranteHistoricoRepository, RestauranteHistoricoRepository>();
+            services.AddScoped<IRestauranteRepository, RestauranteRepository>();
+            services.AddScoped<IUsuarioRestauranteRepository, UsuarioRestauranteRepository>();
 
             // BLL
             services.AddScoped<IUsuarioBLL, UsuarioBLL>();
+            services.AddScoped<IAutenticadorBLL, AutenticadorBLL>();
+            services.AddScoped<IRestauranteBLL, RestauranteBLL>();
+            services.AddScoped<IVotosBLL, VotosBLL>();
 
             // UoW
             services.AddScoped<IUsuarioUoW, UsuarioUoW>();
+            services.AddScoped<IAutenticadorUoW, AutenticadorUoW>();
+            services.AddScoped<IRestautanteUoW, RestauranteUoW>();
+            services.AddScoped<IVotosUoW, VotosUoW>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 // FORMATACAO JSON (PASCAL CASE)
