@@ -78,5 +78,22 @@ namespace USC.Restaurante.DAL
                 throw ex;
             }
         }
+
+        public async Task<List<UsuarioRestaurante>> GetAllRestauranteHistoricoUsuarioAsync(long idUsuario, DateTime? dataHora)
+        {
+            try
+            {
+                var retorno = _dbContext.QueryUsuarioRestaurante.Where(x => x.IdUsuario == idUsuario);
+
+                if (dataHora.HasValue)
+                    retorno = retorno.Where(x => x.DataHora == dataHora);
+
+                return retorno.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

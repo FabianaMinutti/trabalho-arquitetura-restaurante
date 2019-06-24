@@ -25,8 +25,4 @@
     <ProjectReference Include="..\USC.Restaurante.Helpers\USC.Restaurante.Helpers.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTO\" />
-  </ItemGroup>
-
 </Project>

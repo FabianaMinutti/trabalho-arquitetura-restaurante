@@ -7,8 +7,8 @@ namespace USC.Restaurante.BLL.Infra
 {
     public interface IVotosBLL
     {
-        Task<bool> PostVotarAsync(long idRestaurante, long idUsuario, DateTime dataHora);
-        Task<bool> PutVotarAsync(long idRestaurante, long idUsuario, DateTime dataHora);
+        Task<UsuarioRestaurante> PostVotarAsync(long idRestaurante, long idUsuario);
+        Task<UsuarioRestaurante> PutVotarAsync(long idRestaurante, long idUsuario, long idUsuarioRestaurante);
         Task<List<UsuarioRestaurante>> GetVotosUsuario(long idUsuario, DateTime? dataHora);
     }
 }

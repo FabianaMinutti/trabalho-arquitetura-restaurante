@@ -10,10 +10,14 @@ namespace USC.Restaurante.BLL
     public class UsuarioBLL : IUsuarioBLL
     {
         private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IPessoaRepository _pessoaRepository;
 
-        public UsuarioBLL(IUsuarioRepository usuarioRepository)
+        public UsuarioBLL
+            (IUsuarioRepository usuarioRepository,
+            IPessoaRepository pessoaRepository)
         {
             _usuarioRepository = usuarioRepository;
+            _pessoaRepository = pessoaRepository;
         }
 
         /// <summary>
@@ -51,8 +55,11 @@ namespace USC.Restaurante.BLL
         /// </summary>
         /// <param name="usuario">Objeto usuário</param>
         /// <returns>Objeto usuário</returns>
-        public async Task<Usuario> PostUsuarioAsync(Usuario usuario)
+        public async Task<Usuario> PostUsuarioAsync(Usuario usuario, Pessoa pessoa)
         {
+            var pessoaNova = _pessoaRepository.PostPessoaAsync(pessoa);
+            usuario.IdPessoa = pessoaNova.Id;
+
             return await _usuarioRepository.PostUsuarioAsync(usuario);
         }
 

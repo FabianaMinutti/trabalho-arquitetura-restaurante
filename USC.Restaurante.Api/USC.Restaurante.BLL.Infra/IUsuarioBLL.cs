@@ -8,7 +8,7 @@ namespace USC.Restaurante.BLL.Infra
     {
         Task<Usuario> GetUsuarioAsync(long id);
         Task<List<Usuario>> GetAllUsuarioAsync();
-        Task<Usuario> PostUsuarioAsync(Usuario usuario);
+        Task<Usuario> PostUsuarioAsync(Usuario usuario, Pessoa pessoa);
         Task<Usuario> PutUsuarioAsync(Usuario usuario);
     }
 }

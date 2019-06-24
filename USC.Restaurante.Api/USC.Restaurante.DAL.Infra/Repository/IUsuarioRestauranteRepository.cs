@@ -12,5 +12,6 @@ namespace USC.Restaurante.DAL.Infra
         Task<List<UsuarioRestaurante>> GetAllUsuarioRestauranteAsync();
         Task<UsuarioRestaurante> PostUsuarioRestauranteAsync(UsuarioRestaurante usuarioRestaurante);
         Task<UsuarioRestaurante> PutUsuarioRestauranteAsync(UsuarioRestaurante usuarioRestaurante);
+        Task<List<UsuarioRestaurante>> GetAllRestauranteHistoricoUsuarioAsync(long idUsuario, DateTime dataHora);
     }
 }
