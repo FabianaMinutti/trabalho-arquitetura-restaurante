@@ -5,6 +5,6 @@ namespace USC.Restaurante.BLL.Infra
 {
     public interface IAutenticadorBLL
     {
-        Task<Usuario> PostAutenticaAsync(Usuario usuario);
+        public Task<Usuario> PostAutenticaAsync(Usuario usuario);
     }
 }

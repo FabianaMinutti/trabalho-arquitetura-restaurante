@@ -21,22 +21,48 @@ namespace USC.Restaurante.Api.Controllers
         [Route(""), HttpGet]
         public async Task<IActionResult> GetUsuarios()
         {
-            return Ok("Usuário teste");
+            var response = new ResponseContent();
+            try
+            {
+                response.Object = await _usuarioUoW.usuarioBLL.GetAllUsuarioAsync();
+                response.Message = "Requisição realizada com sucesso.";
+                response.Status = true;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Status = false;
+            }
+
+            return Ok(response);
         }
 
         [Route("{idUsuario}"), HttpGet]
         public async Task<IActionResult> GetUsuario(long idUsuario)
         {
-            return Ok("Usuário teste");
+            var response = new ResponseContent();
+            try
+            {
+                response.Object = await _usuarioUoW.usuarioBLL.GetUsuarioAsync(idUsuario);
+                response.Message = "Requisição realizada com sucesso.";
+                response.Status = true;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Status = false;
+            }
+
+            return Ok(response);
         }
 
         [Route(""), HttpPost]
-        public async Task<IActionResult> PostUsuario([FromBody] Usuario usuario)
+        public async Task<IActionResult> PostUsuario([FromBody] Pessoa pessoa, Usuario usuario)
         {
             var response = new ResponseContent();
             try
             {
-                response.Object = await _usuarioUoW.usuarioBLL.PostUsuarioAsync(usuario);
+                response.Object = await _usuarioUoW.usuarioBLL.PostUsuarioAsync(usuario, pessoa);
                 response.Message = "Requisição realizada com sucesso.";
                 response.Status = true;
             }
@@ -50,9 +76,22 @@ namespace USC.Restaurante.Api.Controllers
         }
 
         [Route("{idUsuario}"), HttpPut]
-        public async Task<IActionResult> PutUsuario(long idUsuario)
+        public async Task<IActionResult> PutUsuario(Usuario usuario)
         {
-            return Ok("Usuário teste");
+            var response = new ResponseContent();
+            try
+            {
+                response.Object = await _usuarioUoW.usuarioBLL.PutUsuarioAsync(usuario);
+                response.Message = "Requisição realizada com sucesso.";
+                response.Status = true;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Status = false;
+            }
+
+            return Ok(response);
         }
     }
 }
